@@ -6,8 +6,6 @@ namespace ShabuShabu\Uid\Service;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use RuntimeException;
 use Sqids\Sqids;
 use Throwable;
@@ -82,12 +80,16 @@ final class Uid
     {
         $decoded = $this->decode($uid);
 
-        if (! $class = Relation::getMorphedModel($decoded->prefix)) {
-            throw new ModelNotFoundException();
+        $prefixes = config('uid.prefixes', []);
+
+        if (! array_key_exists($decoded->prefix, $prefixes)) {
+            throw new RuntimeException(
+                "No prefix defined for [$decoded->prefix]"
+            );
         }
 
         /** @var Builder $builder */
-        $builder = call_user_func([$class, 'query']);
+        $builder = call_user_func([$prefixes[$decoded->prefix], 'query']);
 
         return $builder
             ->when(

@@ -42,7 +42,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ShabuShabu\\Uid\\Tests\\": "tests/"
+            "ShabuShabu\\Uid\\Tests\\": "tests/",
+            "ShabuShabu\\Uid\\Tests\\App\\": "tests/app",
+            "ShabuShabu\\Uid\\Tests\\Database\\Factories\\": "tests/app/database/factories"
         }
     },
     "scripts": {

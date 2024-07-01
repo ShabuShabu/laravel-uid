@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace ShabuShabu\Uid\Concerns;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
 use ShabuShabu\Uid\Service\Uid;
 
+/**
+ * @mixin Model
+ */
 trait HasUid
 {
     public function initializeHasUid(): void
