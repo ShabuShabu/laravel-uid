@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Sqids\Sqids;
+
 return [
-    'alphabet' => env('UIDS_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
-    'length' => (int) env('UIDS_LENGTH', 12),
+    'alphabet' => env('UIDS_ALPHABET', Sqids::DEFAULT_ALPHABET),
+    'length' => (int) env('UIDS_LENGTH', 10),
     'separator' => env('UIDS_SEPARATOR', '_'),
-    'blocklist' => \Sqids\Sqids::DEFAULT_BLOCKLIST,
+    'blocklist' => Sqids::DEFAULT_BLOCKLIST,
     'prefixes' => [],
 ];
