@@ -139,6 +139,10 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
+### A word of warning
+
+Please note that this package does **not** work with string or compound primary keys. The underlying [Squids](https://github.com/sqids/sqids-php) library supports the encoding of an integer array, so compound primary keys might eventually be supported.
+
 ## Testing
 
 ```bash
@@ -159,7 +163,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Boris Glumpler](https://github.com/boris-glumpler)
+- [Squids](https://github.com/sqids/sqids-php)
+- [ShabuShabu](https://github.com/ShabuShabu)
 - [All Contributors](../../contributors)
 
 ## License
