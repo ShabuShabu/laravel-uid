@@ -7,6 +7,9 @@ Add Stripe-like universal ids to your models that can be decoded back to their i
 
 ## Installation
 
+> [!CAUTION]
+> Please note that this is a new package and, even though it is well tested, it should be considered pre-release software
+
 You can install the package via composer:
 
 ```bash
@@ -40,6 +43,17 @@ php artisan uid:alphabet
 ```
 
 ## Usage
+
+The first step for every model should be to add the provided `HasUid` trait. This ensures that route model binding works as expected with UIDs.
+
+```php
+use ShabuShabu\Uid\Concerns\HasUid;
+
+class User extends Model
+{
+    use HasUid;
+}
+```
 
 ### Encode from an id
 
