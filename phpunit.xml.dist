@@ -28,4 +28,7 @@
             <directory suffix=".php">./src</directory>
         </include>
     </source>
+    <php>
+        <env name="APP_KEY" value="base64:qrfi8YcScKWzeu9ceFWBz7yJQD/hgOWT857LGv49Ggk="/>
+    </php>
 </phpunit>

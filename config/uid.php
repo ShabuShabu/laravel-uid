@@ -59,7 +59,6 @@ return [
     | UID prefixes
     |--------------------------------------------------------------------------
     |
-    | This setting completely takes over the morph map for your applications.
     | You should specify all your models here (incl. pivot models) eg:
     | ['usr' => \App\Models\User::class]
     |

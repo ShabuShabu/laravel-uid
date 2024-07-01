@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ShabuShabu\Uid;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use ShabuShabu\Uid\Commands\Alphabet;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -36,10 +35,5 @@ class UidServiceProvider extends PackageServiceProvider
                 blocklist: config('uid.blocklist'),
             )
         );
-    }
-
-    public function packageBooted(): void
-    {
-        Relation::enforceMorphMap(config('uid.prefixes'));
     }
 }
