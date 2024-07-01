@@ -21,7 +21,15 @@ php artisan vendor:publish --tag="laravel-uid-config"
 
 ### Prefixes
 
-You will then have to add all your models to the `prefixes` array in the config file.
+You will then have to add all your models to the `prefixes` array in the config file:
+
+```php
+return [
+    'prefixes' => [
+        'usr' => \App\Models\User::class,
+    ],
+];
+```
 
 ### Create a custom alphabet
 
