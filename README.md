@@ -19,7 +19,7 @@ composer require shabushabu/laravel-uid
 Publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-uid-config"
+php artisan vendor:publish --tag="uid-config"
 ```
 
 ### Prefixes
