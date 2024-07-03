@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* added a command to create custom sqids alphabets ([e92e9a2](https://github.com/ShabuShabu/laravel-uid/commits/e92e9a2215c1f75dfcdaa3962ce228d0fef97174))
 * added uid:info command ([b792c6e](https://github.com/ShabuShabu/laravel-uid/commits/b792c6ef1dbeebe13240945be6cf298fd0e7cd4d))
 
 
