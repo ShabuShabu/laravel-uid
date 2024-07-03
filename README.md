@@ -123,6 +123,14 @@ $alias = Uid::alias(User::class);
 // returns usr
 ```
 
+### Model info based on a UID
+
+If you have a UID and would like some info about it, then you can use the following command:
+
+```bash
+php artisan uid:info
+```
+
 ### Bonus idea
 
 Use the prefixes as your morph map:
