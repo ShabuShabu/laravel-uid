@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.3.0 (2024-07-03)
+
+
+### Features
+
+* added a resolve_model helper function ([56dfb4c](https://github.com/ShabuShabu/laravel-uid/commits/56dfb4cee84e1e1233eae51e2d244cc0c563181f))
+
 ## 0.2.0 (2024-07-03)
 
 
