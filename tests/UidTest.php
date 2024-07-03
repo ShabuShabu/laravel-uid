@@ -13,10 +13,6 @@ use Sqids\Sqids;
 
 use function Pest\Laravel\get;
 
-beforeEach(function () {
-    config(['uid.prefixes' => ['usr' => User::class]]);
-});
-
 it('encodes a model id to a hash', function () {
     $user = User::factory()->create();
 

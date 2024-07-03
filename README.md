@@ -19,7 +19,7 @@ composer require shabushabu/laravel-uid
 Publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-uid-config"
+php artisan vendor:publish --tag="uid-config"
 ```
 
 ### Prefixes
@@ -121,6 +121,14 @@ use ShabuShabu\Uid\Service\Uid;
 $alias = Uid::alias(User::class);
 
 // returns usr
+```
+
+### Model info based on a UID
+
+If you have a UID and would like some info about it, then you can use the following command:
+
+```bash
+php artisan uid:info
 ```
 
 ### Bonus idea
