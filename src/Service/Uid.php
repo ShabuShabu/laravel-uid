@@ -84,7 +84,7 @@ final class Uid
 
         if (! array_key_exists($decoded->prefix, $prefixes)) {
             throw new RuntimeException(
-                "No prefix defined for [$decoded->prefix]"
+                "No model class defined for prefix `$decoded->prefix`"
             );
         }
 
@@ -107,7 +107,7 @@ final class Uid
 
         if (blank($result = $this->service->decode($hashId))) {
             throw new RuntimeException(
-                "Unable to decode uid [$hashId]"
+                "Unable to decode uid `$hashId`"
             );
         }
 
