@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ShabuShabu\Uid\Service\DecodedUid;
 use ShabuShabu\Uid\Service\Uid;
+use ShabuShabu\Uid\Tests\App\Models\Contact;
 use ShabuShabu\Uid\Tests\App\Models\User;
 use Sqids\Sqids;
 
@@ -57,6 +58,21 @@ it('decodes a uid to a model', function () {
     expect($model)->toBeInstanceOf(User::class)
         ->and($model->getKey())->toBe($user->getKey());
 });
+
+it('decodes a uid to a model while enforcing a type', function () {
+    $user = User::factory()->create();
+
+    $model = Uid::make()->decodeToModel($user->uid, User::class);
+
+    expect($model)->toBeInstanceOf(User::class)
+        ->and($model->getKey())->toBe($user->getKey());
+});
+
+it('panics for an invalid model while decoding to a model', function () {
+    $user = User::factory()->create();
+
+    Uid::make()->decodeToModel($user->uid, Contact::class);
+})->throws(RuntimeException::class);
 
 it('uses a uid in implicit route model binding', function () {
     Route::domain('test.com')->middleware('web')->get('/{model:uid}', function (User $model) {

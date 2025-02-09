@@ -7,20 +7,20 @@ namespace ShabuShabu\Uid\Tests\App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use ShabuShabu\Uid\Concerns\HasUid;
-use ShabuShabu\Uid\Tests\Database\Factories\UserFactory;
+use ShabuShabu\Uid\Tests\Database\Factories\ContactFactory;
 
 /**
  * @property-read string $uid
  */
-class User extends Model
+class Contact extends Model
 {
     use HasFactory;
     use HasUid;
 
     protected $guarded = [];
 
-    protected static function newFactory(): UserFactory
+    protected static function newFactory(): ContactFactory
     {
-        return new UserFactory;
+        return new ContactFactory;
     }
 }
