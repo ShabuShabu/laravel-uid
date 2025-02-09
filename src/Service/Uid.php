@@ -69,14 +69,14 @@ final class Uid
     public function encodeFromId(string $class, int | string $id): string
     {
         $this->assertValidPrefix(
-            $prefix = (new $class())->getMorphClass(),
+            $prefix = (new $class)->getMorphClass(),
             $class
         );
 
         return $this->makeUid($prefix, $id);
     }
 
-    public function decodeToModel(string $uid): Model
+    public function decodeToModel(string $uid, ?string $class = null): Model
     {
         $decoded = $this->decode($uid);
 
@@ -88,17 +88,20 @@ final class Uid
             );
         }
 
-        /** @var Builder $builder */
-        $builder = call_user_func([$prefixes[$decoded->prefix], 'query']);
+        $query = $prefixes[$decoded->prefix];
 
-        return $builder
-            ->when(
-                $this->trashed,
-                fn (Builder $query) => method_exists($query, 'withTrashed')
+        if (is_string($class) && (! class_exists($class) || $query !== $class)) {
+            throw new RuntimeException(
+                "The returned model would not match `$class`"
+            );
+        }
+
+        return $query::query()->when(
+            $this->trashed,
+            fn (Builder $query) => method_exists($query, 'withTrashed')
                     ? $query->withTrashed()
                     : $query
-            )
-            ->findOrFail($decoded->modelId);
+        )->findOrFail($decoded->modelId);
     }
 
     public function decode(string $uid): DecodedUid
