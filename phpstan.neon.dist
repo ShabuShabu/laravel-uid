@@ -7,3 +7,6 @@ parameters:
     checkOctaneCompatibility: true
     checkModelProperties: true
     noEnvCallsOutsideOfConfig: false
+    ignoreErrors:
+        -
+            identifier: trait.unused

@@ -2,7 +2,7 @@
   "name": "@shabushabu/laravel-uid",
   "author": "ShabuShabu - Glumpler GbR",
   "license": "MIT",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "type": "module",
   "scripts": {
     "prepare": "husky"
