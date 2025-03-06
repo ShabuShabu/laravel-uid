@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
----
+## [0.4.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.0..0.4.1) - 2025-03-06
+
+### Bug Fixes
+
+- changed fixed package version back - ([f3cd2ba](https://github.com/ShabuShabu/laravel-uid/commit/f3cd2babaf8a66bff3d14c4d237385eb573fef34)) - Boris Glumpler
+
 ## [0.4.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.1.0..v0.4.0) - 2025-03-06
 
 Switched to git-cliff, so the changelog for this tag encompasses all the previous tags as well.
