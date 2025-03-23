@@ -98,9 +98,7 @@ final class Uid
 
         return $query::query()->when(
             $this->trashed,
-            fn (Builder $query) => method_exists($query, 'withTrashed')
-                    ? $query->withTrashed()
-                    : $query
+            fn (Builder $builder) => $builder->withTrashed() // @phpstan-ignore method.notFound
         )->findOrFail($decoded->modelId);
     }
 
