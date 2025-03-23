@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [0.4.2](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.1..0.4.2) - 2025-03-23
+
+### Bug Fixes
+
+- trashed models can be retrieved again - ([eaa71cd](https://github.com/ShabuShabu/laravel-uid/commit/eaa71cd79ae0c4efa13b9f1faa83de1c597269b8)) - Boris Glumpler
+
 ## [0.4.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.0..0.4.1) - 2025-03-06
 
 ### Bug Fixes
