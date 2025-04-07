@@ -119,6 +119,19 @@ final class Uid
         );
     }
 
+    public function decodeOrFail(string $uid, string $class): DecodedUid
+    {
+        $decoded = $this->decode($uid);
+
+        if ($decoded->prefix !== self::alias($class)) {
+            throw new RuntimeException(
+                "The returned model would not match `$class`"
+            );
+        }
+
+        return $decoded;
+    }
+
     public function isValid(mixed $uid, ?string $model = null): bool
     {
         if (! is_string($uid)) {

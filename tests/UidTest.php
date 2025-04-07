@@ -50,6 +50,19 @@ it('decodes a uid', function () {
         ->and($result->hashId)->toBe($sqid);
 });
 
+it('decodes a uid while enforcing a type', function () {
+    $user = User::factory()->create();
+
+    $sqid = app(Sqids::class)->encode([$user->id]);
+
+    $result = Uid::make()->decodeOrFail($user->uid, User::class);
+
+    expect($result)->toBeInstanceOf(DecodedUid::class)
+        ->and($result->prefix)->toBe('usr')
+        ->and($result->modelId)->toBe($user->id)
+        ->and($result->hashId)->toBe($sqid);
+});
+
 it('decodes a uid to a model', function () {
     $user = User::factory()->create();
 
@@ -92,4 +105,10 @@ it('retrieves a uid alias from a class string', function () {
 
 it('panics for an invalid class', function () {
     Uid::alias('Some\Undefined\Class');
+})->throws(RuntimeException::class);
+
+it('panics for an invalid type when decoding', function () {
+    $user = User::factory()->create();
+
+    Uid::make()->decodeOrFail($user->uid, Contact::class);
 })->throws(RuntimeException::class);
