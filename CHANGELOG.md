@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [0.5.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.2..0.5.0) - 2025-04-07
+
+### Features
+
+- added a decodeOrFail method - ([249b14f](https://github.com/ShabuShabu/laravel-uid/commit/249b14fddf02b852e3a12e2670c68fe5e2aabd1c)) - Boris Glumpler
+
 ## [0.4.2](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.1..0.4.2) - 2025-03-23
 
 ### Bug Fixes
