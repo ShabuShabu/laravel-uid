@@ -12,3 +12,9 @@ it('uses the uid facade', function () {
 
     expect(Uid::encode($user))->toBeString();
 });
+
+it('uses the uid function', function () {
+    $user = User::factory()->create();
+
+    expect(uid()->encode($user))->toBeString();
+});
