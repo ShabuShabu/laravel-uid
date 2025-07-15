@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [conven
 
 ---
 
+## [0.7.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.6.0..v0.7.0) - 2025-07-15
+
+### Features
+
+- semi-automatic custom alphabet and morph map handling - ([f223f32](https://github.com/ShabuShabu/laravel-uid/commit/f223f3201562d4138a9b7892cef7aece025e485d)) - Boris Glumpler
+
+---
+
 ## [0.6.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.5.0..v0.6.0) - 2025-07-15
 
 ### Features
