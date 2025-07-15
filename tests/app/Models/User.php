@@ -7,12 +7,13 @@ namespace ShabuShabu\Uid\Tests\App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use ShabuShabu\Uid\Concerns\HasUid;
+use ShabuShabu\Uid\Contracts\Identifiable;
 use ShabuShabu\Uid\Tests\Database\Factories\UserFactory;
 
 /**
  * @property-read string $uid
  */
-class User extends Model
+class User extends Model implements Identifiable
 {
     use HasFactory;
     use HasUid;

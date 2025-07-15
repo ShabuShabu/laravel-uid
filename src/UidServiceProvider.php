@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShabuShabu\Uid;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use ShabuShabu\Uid\Commands\Alphabet;
 use ShabuShabu\Uid\Commands\Info;
 use ShabuShabu\Uid\Service\Encoder;
@@ -29,6 +30,21 @@ class UidServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->askToStarRepoOnGitHub('ShabuShabu/laravel-uid');
             });
+    }
+
+    public function packageBooted(): void
+    {
+        $config = $this->app['config']['uid'];
+
+        if (! $config['morph_map']['enabled']) {
+            return;
+        }
+
+        if ($config['morph_map']['type'] === 'enforced') {
+            Relation::enforceMorphMap($config['prefixes']);
+        } else {
+            Relation::morphMap($config['prefixes']);
+        }
     }
 
     public function packageRegistered(): void

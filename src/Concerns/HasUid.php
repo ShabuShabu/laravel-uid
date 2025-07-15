@@ -6,7 +6,7 @@ namespace ShabuShabu\Uid\Concerns;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use ShabuShabu\Uid\Service\Uid;
+use ShabuShabu\Uid\Facades\Uid;
 
 /**
  * @mixin Model
@@ -25,7 +25,7 @@ trait HasUid
     {
         return Attribute::make(
             get: fn () => $this->exists
-                ? Uid::make()->encode($this)
+                ? Uid::encode($this)
                 : null,
         );
     }
@@ -36,11 +36,15 @@ trait HasUid
             return parent::resolveRouteBindingQuery($query, $value, $field);
         }
 
-        return $query->where('id', Uid::make()->decode($value)->modelId);
+        return $query->where('id', Uid::decode($value)->modelId);
     }
 
     public function getMorphClass(): string
     {
+        if (! config('uid.morph_map.enabled')) {
+            return parent::getMorphClass();
+        }
+
         $prefixes = config('uid.prefixes');
 
         if (filled($prefixes) && in_array(static::class, $prefixes, true)) {
@@ -48,5 +52,14 @@ trait HasUid
         }
 
         return parent::getMorphClass();
+    }
+
+    public function uidAlphabet(): string
+    {
+        $alias = Uid::alias(static::class);
+
+        $alphabet = config("uid.alphabets.$alias");
+
+        return filled($alphabet) ? $alphabet : config('uid.alphabet');
     }
 }

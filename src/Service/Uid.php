@@ -41,45 +41,22 @@ final class Uid
         return $alias;
     }
 
-    public function encode(Model $model): string
+    public function encode(Identifiable $model): string
     {
-        $this->assertValidPrefix(
-            $prefix = $model->getMorphClass(),
-            get_class($model)
-        );
-
-        return $this->makeUid($prefix, $model->getKey(), $model);
+        return $this->makeUid($this->alias($model::class), $model->getKey(), $model);
     }
 
     public function encodeFromId(string $class, int | string $id): string
     {
-        $record = new $class;
-
-        $this->assertValidPrefix(
-            $prefix = $record->getMorphClass(),
-            $class
-        );
-
-        return $this->makeUid($prefix, $id, $record);
+        return $this->makeUid($this->alias($class), $id, new $class);
     }
 
-    protected function assertValidPrefix(string $prefix, string $class): void
+    protected function service(Identifiable $model): Sqids
     {
-        if (! $this->hasModel($prefix)) {
-            throw new RuntimeException(
-                "The model prefix for `$class` has not been registered yet. Current prefix: `$prefix`"
-            );
-        }
+        return Encoder::make($model->uidAlphabet());
     }
 
-    protected function service(Model $model): Sqids
-    {
-        return $model instanceof Identifiable
-            ? Encoder::make($model->uidAlphabet())
-            : app(Sqids::class);
-    }
-
-    protected function makeUid(string $prefix, int | string $id, Model $model): string
+    protected function makeUid(string $prefix, int | string $id, Identifiable $model): string
     {
         return $prefix . $this->config['separator'] . $this->service($model)->encode([(int) $id]);
     }
@@ -144,7 +121,7 @@ final class Uid
         }
 
         try {
-            $decoded = self::make()->decode($uid);
+            $decoded = $this->decode($uid);
 
             return match (true) {
                 $model === null => $this->hasModel($decoded->prefix),

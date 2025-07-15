@@ -7,7 +7,7 @@ use Sqids\Sqids;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Alphabet
+    | Default alphabet
     |--------------------------------------------------------------------------
     |
     | It is recommended to set a custom alphabet here using the `uid:alphabet`
@@ -56,6 +56,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Use prefixes as morph map
+    |--------------------------------------------------------------------------
+    |
+    | Instead of declaring your morph map separately, you can re-use your
+    | prefixes as the morph map.
+    |
+    | Type can be either `regular` or `enforced`
+    |
+    */
+
+    'morph_map' => [
+        'enabled' => (bool) env('UID_MORPH_MAP_ENABLED', false),
+        'type' => env('UID_MORPH_MAP_TYPE', 'enforced'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | UID prefixes
     |--------------------------------------------------------------------------
     |
@@ -65,4 +82,16 @@ return [
     */
 
     'prefixes' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom model alphabets
+    |--------------------------------------------------------------------------
+    |
+    | Specify any model alphabets here, prefix => alphabet.
+    | Models without a custom alphabet will use the default one above.
+    |
+    */
+
+    'alphabets' => [],
 ];
