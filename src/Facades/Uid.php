@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Facade;
 use ShabuShabu\Uid\Service\DecodedUid;
 
 /**
- * @method string alias(string $class)
- * @method string encode(Model $model)
- * @method string encodeFromId(string $class, int | string $id)
- * @method Model decodeToModel(string $uid, ?string $class = null)
- * @method DecodedUid decode(string $uid)
- * @method DecodedUid decodeOrFail(string $uid, string $class)
- * @method bool isValid(mixed $uid, ?string $model = null)
- * @method null | string getModel(string | DecodedUid $prefix)
- * @method null | string hasModel(string | DecodedUid $prefix)
- * @method \ShabuShabu\Uid\Service\Uid withTrashed()
+ * @method static string alias(string $class)
+ * @method static string encode(Model $model)
+ * @method static string encodeFromId(string $class, int | string $id)
+ * @method static Model decodeToModel(string $uid, ?string $class = null)
+ * @method static DecodedUid decode(string $uid)
+ * @method static DecodedUid decodeOrFail(string $uid, string $class)
+ * @method static bool isValid(mixed $uid, ?string $model = null)
+ * @method static null | string getModel(string | DecodedUid $prefix)
+ * @method static null | string hasModel(string | DecodedUid $prefix)
+ * @method static \ShabuShabu\Uid\Service\Uid withTrashed()
  */
 class Uid extends Facade
 {
