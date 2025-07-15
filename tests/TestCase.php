@@ -34,6 +34,17 @@ class TestCase extends Orchestra
                 'usr' => User::class,
                 'con' => Contact::class,
             ]);
+
+            /*
+            $config->set('uid.morph_map', [
+                'enabled' => true,
+                'type' => 'enforced',
+            ]);
+            */
+
+            $config->set('uid.alphabets', [
+                'con' => 'VbhoG706KLHC2OkEXN5tinPjfwJD3lmupYrRIeMS89ATcUgqszydQ1ZW4aFvBx',
+            ]);
         });
     }
 }

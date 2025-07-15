@@ -24,9 +24,4 @@ class Contact extends Model implements Identifiable
     {
         return new ContactFactory;
     }
-
-    public function uidAlphabet(): string
-    {
-        return 'VbhoG706KLHC2OkEXN5tinPjfwJD3lmupYrRIeMS89ATcUgqszydQ1ZW4aFvBx';
-    }
 }

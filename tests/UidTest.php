@@ -114,14 +114,14 @@ it('panics for an invalid type when decoding', function () {
 })->throws(RuntimeException::class);
 
 it('uses a custom alphabet', function () {
-    $user = Uid::make()->decode(
-        User::factory()->create()->uid
-    );
+    $user = User::factory()->create();
+    $userUid = Uid::make()->decode($user->uid);
 
-    $contact = Uid::make()->decode(
-        Contact::factory()->create()->uid
-    );
+    $contact = Contact::factory()->create();
+    $contactUid = Uid::make()->decode($contact->uid);
 
-    expect($user->modelId)->toBe($contact->modelId)
-        ->and($user->hashId)->not->toBe($contact->hashId);
+    expect($userUid->modelId)->toBe($contactUid->modelId)
+        ->and($userUid->hashId)->not->toBe($contactUid->hashId)
+        ->and($user->uidAlphabet())->toBe(config('uid.alphabet'))
+        ->and($contact->uidAlphabet())->toBe(config('uid.alphabets.con'));
 });

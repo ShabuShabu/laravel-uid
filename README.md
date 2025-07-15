@@ -28,6 +28,7 @@ You will then have to add all your models to the `prefixes` array in the config 
 
 ```php
 return [
+    // ...
     'prefixes' => [
         'usr' => \App\Models\User::class,
     ],
@@ -42,21 +43,31 @@ Run the following command and add the output to your `.env` file:
 php artisan uid:alphabet
 ```
 
-### Alphabets per model
-
-It is also possible to use different alphabets per model. For this, a model needs to implement the `ShabuShabu\Uid\Contracts\Identifiable` interface and return an alphabet from the `uidAlphabet()` method.
-
 ## Usage
 
-The first step for every model should be to add the provided `HasUid` trait. This ensures that route model binding works as expected with UIDs.
+The first step for every model should be to add the provided `HasUid` trait and the `Identifiable` interface. This also ensures that route model binding works as expected with UIDs.
 
 ```php
 use ShabuShabu\Uid\Concerns\HasUid;
+use ShabuShabu\Uid\Contracts\Identifiable;
 
-class User extends Model
+class User extends Model implements Identifiable
 {
     use HasUid;
 }
+```
+
+### Alphabets per model
+
+If you want to use custom alphabets for your models, you need to add them to the config file. Any model that does not use a custom alphabet will use the default alphabet.
+
+```php
+return [
+    // ...
+    'alphabets' => [
+        'usr' => 'abcdefgh...'
+    ],
+];
 ```
 
 ### Encode from an id
@@ -135,20 +146,20 @@ If you have a UID and would like some info about it, then you can use the follow
 php artisan uid:info
 ```
 
-### Bonus idea
+### Using your prefixes as the morph map
 
-Use the prefixes as your morph map:
+You need to either set the `UID_MORPH_MAP_ENABLED` env variable to `true` or enable it directly in the config file.
+
+By default, this will enable an enforced morph map, but you are free to change this to a regular one.
 
 ```php
-use Illuminate\Database\Eloquent\Relations\Relation;
-
-class AppServiceProvider extends ServiceProvider
-{
-    public function boot(): void
-    {
-        Relation::enforceMorphMap(config('uid.prefixes'));
-    }
-}
+return [
+    // ...
+    'morph_map' => [
+        'enabled' => true,
+        'type' => 'regular',
+    ],
+];
 ```
 
 ### A word of warning

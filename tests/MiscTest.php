@@ -18,3 +18,9 @@ it('uses the uid function', function () {
 
     expect(uid()->encode($user))->toBeString();
 });
+
+it('does not enable a morph map by default', function () {
+    $user = User::factory()->create();
+
+    expect($user->getMorphClass())->toBe($user::class);
+});
