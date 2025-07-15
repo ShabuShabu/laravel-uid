@@ -42,6 +42,10 @@ Run the following command and add the output to your `.env` file:
 php artisan uid:alphabet
 ```
 
+### Alphabets per model
+
+It is also possible to use different alphabets per model. For this, a model needs to implement the `ShabuShabu\Uid\Contracts\Identifiable` interface and return an alphabet from the `uidAlphabet()` method.
+
 ## Usage
 
 The first step for every model should be to add the provided `HasUid` trait. This ensures that route model binding works as expected with UIDs.
@@ -68,9 +72,10 @@ $uid = Uid::make()->encodeFromId(User::class, 1);
 ### Encode a model
 
 ```php
-use ShabuShabu\Uid\Service\Uid;
+use ShabuShabu\Uid\Facades\Uid;
 
-$uid = Uid::make()->encode(User::find(1));
+// using the facade...
+$uid = Uid::encode(User::find(1));
 
 // something like: usr_86Rf07xd4z
 ```
@@ -78,9 +83,8 @@ $uid = Uid::make()->encode(User::find(1));
 ### Decode a uid
 
 ```php
-use ShabuShabu\Uid\Service\Uid;
-
-$decoded = Uid::make()->decode('usr_86Rf07xd4z');
+// using the global function
+$decoded = uid()->decode('usr_86Rf07xd4z');
 
 // returns an instance of DecodedUid::class
 ```
@@ -116,7 +120,7 @@ $valid = Uid::make()->isValid('usr_86Rf07xd4z', User::class);
 ### Retrieve the alias of a given class
 
 ```php
-use ShabuShabu\Uid\Service\Uid;
+use ShabuShabu\Uid\Facades\Uid;
 
 $alias = Uid::alias(User::class);
 
@@ -160,6 +164,10 @@ composer test
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Upgrade guide
+
+Please see [UPGRADE](UPGRADE.md) for details.
 
 ## Contributing
 

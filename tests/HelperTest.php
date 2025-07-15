@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 use ShabuShabu\Uid\Tests\App\Models\User;
 
-use function ShabuShabu\Uid\resolve_model;
-
 it('returns the model', function () {
     $user = User::factory()->create();
 

@@ -2,11 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+---
+
+## [0.6.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.5.0..v0.6.0) - 2025-07-15
+
+### Features
+
+- models can have their own uid alphabet now - ([5d9514b](https://github.com/ShabuShabu/laravel-uid/commit/5d9514b04cc0eeed675a3a96d68bbbb4578e41fd)) - Boris Glumpler
+- introduced a uid facade - ([fdcb714](https://github.com/ShabuShabu/laravel-uid/commit/fdcb714d1a5fcf1e8160caf61cc941b30ec9e319)) - Boris Glumpler
+
+---
+
 ## [0.5.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.2..0.5.0) - 2025-04-07
 
 ### Features
 
 - added a decodeOrFail method - ([249b14f](https://github.com/ShabuShabu/laravel-uid/commit/249b14fddf02b852e3a12e2670c68fe5e2aabd1c)) - Boris Glumpler
+
+---
 
 ## [0.4.2](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.1..0.4.2) - 2025-03-23
 
@@ -14,11 +27,15 @@ All notable changes to this project will be documented in this file. See [conven
 
 - trashed models can be retrieved again - ([eaa71cd](https://github.com/ShabuShabu/laravel-uid/commit/eaa71cd79ae0c4efa13b9f1faa83de1c597269b8)) - Boris Glumpler
 
+---
+
 ## [0.4.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.4.0..0.4.1) - 2025-03-06
 
 ### Bug Fixes
 
 - changed fixed package version back - ([f3cd2ba](https://github.com/ShabuShabu/laravel-uid/commit/f3cd2babaf8a66bff3d14c4d237385eb573fef34)) - Boris Glumpler
+
+---
 
 ## [0.4.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.1.0..v0.4.0) - 2025-03-06
 
