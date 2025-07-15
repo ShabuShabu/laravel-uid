@@ -7,6 +7,7 @@ namespace ShabuShabu\Uid;
 use ShabuShabu\Uid\Commands\Alphabet;
 use ShabuShabu\Uid\Commands\Info;
 use ShabuShabu\Uid\Service\Encoder;
+use ShabuShabu\Uid\Service\Uid;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -32,9 +33,7 @@ class UidServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->scoped(
-            Sqids::class,
-            fn () => Encoder::make()
-        );
+        $this->app->scoped(Sqids::class, fn () => Encoder::make());
+        $this->app->scoped('uid', Uid::class);
     }
 }

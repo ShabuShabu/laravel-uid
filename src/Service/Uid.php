@@ -65,7 +65,7 @@ final class Uid
 
     protected function assertValidPrefix(string $prefix, string $class): void
     {
-        if (! array_key_exists($prefix, $this->config['prefixes'])) {
+        if (! $this->hasModel($prefix)) {
             throw new RuntimeException(
                 "The model prefix for `$class` has not been registered yet. Current prefix: `$prefix`"
             );
@@ -104,9 +104,7 @@ final class Uid
     {
         [$prefix, $hashId] = explode($this->config['separator'], $uid);
 
-        $model = $this->config['prefixes'][$prefix] ?? null;
-
-        if (! $model) {
+        if (! $model = $this->getModel($prefix)) {
             throw new RuntimeException(
                 "No model class defined for prefix `$prefix`"
             );
@@ -149,12 +147,33 @@ final class Uid
             $decoded = self::make()->decode($uid);
 
             return match (true) {
-                $model === null => array_key_exists($decoded->prefix, $this->config['prefixes']),
+                $model === null => $this->hasModel($decoded->prefix),
                 is_string($model) => $this->alias($model) === $decoded->prefix,
             };
         } catch (Throwable) {
             return false;
         }
+    }
+
+    protected function normalizeDecoded(string | DecodedUid $prefix): string
+    {
+        return $prefix instanceof DecodedUid
+            ? $prefix->prefix
+            : $prefix;
+    }
+
+    public function getModel(string | DecodedUid $prefix): ?string
+    {
+        $key = $this->normalizeDecoded($prefix);
+
+        return $this->config['prefixes'][$key] ?? null;
+    }
+
+    public function hasModel(string | DecodedUid $prefix): bool
+    {
+        $key = $this->normalizeDecoded($prefix);
+
+        return array_key_exists($key, $this->config['prefixes']);
     }
 
     public function withTrashed(): Uid
