@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ShabuShabu\Uid\Service;
 
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use RuntimeException;
+use ShabuShabu\Uid\Contracts\Identifiable;
 use Sqids\Sqids;
 use Throwable;
 
@@ -14,23 +16,20 @@ final class Uid
 {
     protected bool $trashed = false;
 
-    protected function __construct(
-        protected Sqids $service,
-        protected string $separator
+    public function __construct(
+        #[Config('uid')]
+        protected array $config
     ) {}
 
     public static function make(): Uid
     {
-        return new self(
-            app(Sqids::class),
-            config('uid.separator')
-        );
+        return app(self::class);
     }
 
-    public static function alias(string $class): string
+    public function alias(string $class): string
     {
         if (
-            blank($prefixes = config('uid.prefixes')) ||
+            blank($prefixes = $this->config['prefixes']) ||
             ! in_array($class, $prefixes, true) ||
             ($alias = array_search($class, $prefixes, true)) === false
         ) {
@@ -49,54 +48,53 @@ final class Uid
             get_class($model)
         );
 
-        return $this->makeUid($prefix, $model->getKey());
+        return $this->makeUid($prefix, $model->getKey(), $model);
+    }
+
+    public function encodeFromId(string $class, int | string $id): string
+    {
+        $record = new $class;
+
+        $this->assertValidPrefix(
+            $prefix = $record->getMorphClass(),
+            $class
+        );
+
+        return $this->makeUid($prefix, $id, $record);
     }
 
     protected function assertValidPrefix(string $prefix, string $class): void
     {
-        if (! array_key_exists($prefix, config('uid.prefixes'))) {
+        if (! array_key_exists($prefix, $this->config['prefixes'])) {
             throw new RuntimeException(
                 "The model prefix for `$class` has not been registered yet. Current prefix: `$prefix`"
             );
         }
     }
 
-    protected function makeUid(string $prefix, int | string $id): string
+    protected function service(Model $model): Sqids
     {
-        return $prefix . $this->separator . $this->service->encode([(int) $id]);
+        return $model instanceof Identifiable
+            ? Encoder::make($model->uidAlphabet())
+            : app(Sqids::class);
     }
 
-    public function encodeFromId(string $class, int | string $id): string
+    protected function makeUid(string $prefix, int | string $id, Model $model): string
     {
-        $this->assertValidPrefix(
-            $prefix = (new $class)->getMorphClass(),
-            $class
-        );
-
-        return $this->makeUid($prefix, $id);
+        return $prefix . $this->config['separator'] . $this->service($model)->encode([(int) $id]);
     }
 
     public function decodeToModel(string $uid, ?string $class = null): Model
     {
         $decoded = $this->decode($uid);
 
-        $prefixes = config('uid.prefixes', []);
-
-        if (! array_key_exists($decoded->prefix, $prefixes)) {
-            throw new RuntimeException(
-                "No model class defined for prefix `$decoded->prefix`"
-            );
-        }
-
-        $query = $prefixes[$decoded->prefix];
-
-        if (is_string($class) && (! class_exists($class) || $query !== $class)) {
+        if (is_string($class) && (! class_exists($class) || $decoded->class !== $class)) {
             throw new RuntimeException(
                 "The returned model would not match `$class`"
             );
         }
 
-        return $query::query()->when(
+        return $decoded->class::query()->when(
             $this->trashed,
             fn (Builder $builder) => $builder->withTrashed() // @phpstan-ignore method.notFound
         )->findOrFail($decoded->modelId);
@@ -104,18 +102,27 @@ final class Uid
 
     public function decode(string $uid): DecodedUid
     {
-        [$prefix, $hashId] = explode($this->separator, $uid);
+        [$prefix, $hashId] = explode($this->config['separator'], $uid);
 
-        if (blank($result = $this->service->decode($hashId))) {
+        $model = $this->config['prefixes'][$prefix] ?? null;
+
+        if (! $model) {
+            throw new RuntimeException(
+                "No model class defined for prefix `$prefix`"
+            );
+        }
+
+        if (blank($result = $this->service(new $model)->decode($hashId))) {
             throw new RuntimeException(
                 "Unable to decode uid `$hashId`"
             );
         }
 
         return new DecodedUid(
-            prefix: rtrim($prefix, $this->separator),
+            prefix: rtrim($prefix, $this->config['separator']),
             hashId: $hashId,
-            modelId: $result[0]
+            modelId: $result[0],
+            class: $model,
         );
     }
 
@@ -123,7 +130,7 @@ final class Uid
     {
         $decoded = $this->decode($uid);
 
-        if ($decoded->prefix !== self::alias($class)) {
+        if ($decoded->prefix !== $this->alias($class)) {
             throw new RuntimeException(
                 "The returned model would not match `$class`"
             );
@@ -142,8 +149,8 @@ final class Uid
             $decoded = self::make()->decode($uid);
 
             return match (true) {
-                $model === null => array_key_exists($decoded->prefix, config('uid.prefixes')),
-                is_string($model) => self::alias($model) === $decoded->prefix,
+                $model === null => array_key_exists($decoded->prefix, $this->config['prefixes']),
+                is_string($model) => $this->alias($model) === $decoded->prefix,
             };
         } catch (Throwable) {
             return false;

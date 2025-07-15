@@ -100,11 +100,11 @@ it('uses a uid in implicit route model binding', function () {
 });
 
 it('retrieves a uid alias from a class string', function () {
-    expect(Uid::alias(User::class))->toBe('usr');
+    expect(Uid::make()->alias(User::class))->toBe('usr');
 });
 
 it('panics for an invalid class', function () {
-    Uid::alias('Some\Undefined\Class');
+    Uid::make()->alias('Some\Undefined\Class');
 })->throws(RuntimeException::class);
 
 it('panics for an invalid type when decoding', function () {
@@ -112,3 +112,16 @@ it('panics for an invalid type when decoding', function () {
 
     Uid::make()->decodeOrFail($user->uid, Contact::class);
 })->throws(RuntimeException::class);
+
+it('uses a custom alphabet', function () {
+    $user = Uid::make()->decode(
+        User::factory()->create()->uid
+    );
+
+    $contact = Uid::make()->decode(
+        Contact::factory()->create()->uid
+    );
+
+    expect($user->modelId)->toBe($contact->modelId)
+        ->and($user->hashId)->not->toBe($contact->hashId);
+});
