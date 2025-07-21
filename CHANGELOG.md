@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [conven
 
 ---
 
+## [0.8.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.7.0..v0.8.0) - 2025-07-21
+
+### Features
+
+- added a command to encode a model id - ([39d4d2d](https://github.com/ShabuShabu/laravel-uid/commit/39d4d2dd7e14b90e0ad3cd48e5d2dac364b86ec9)) - Boris Glumpler
+
+---
+
 ## [0.7.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.6.0..v0.7.0) - 2025-07-15
 
 ### Features
