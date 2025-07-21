@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace ShabuShabu\Uid;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use ShabuShabu\Uid\Commands\Alphabet;
-use ShabuShabu\Uid\Commands\Info;
 use ShabuShabu\Uid\Service\Encoder;
 use ShabuShabu\Uid\Service\Uid;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -22,8 +20,9 @@ class UidServiceProvider extends PackageServiceProvider
             ->name('laravel-uid')
             ->hasConfigFile()
             ->hasCommands(
-                Alphabet::class,
-                Info::class,
+                Commands\Alphabet::class,
+                Commands\Info::class,
+                Commands\Encode::class,
             )
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
