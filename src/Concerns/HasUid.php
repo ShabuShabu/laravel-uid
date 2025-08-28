@@ -62,4 +62,19 @@ trait HasUid
 
         return filled($alphabet) ? $alphabet : config('uid.alphabet');
     }
+
+    public static function encodeId(int $id): string
+    {
+        return Uid::encodeFromId(static::class, $id);
+    }
+
+    public static function decodeUid(string $uid): static
+    {
+        return Uid::decodeToModel($uid, static::class);
+    }
+
+    public static function uidPrefix(): string
+    {
+        return Uid::alias(static::class);
+    }
 }

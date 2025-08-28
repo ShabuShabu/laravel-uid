@@ -114,7 +114,7 @@ final class Uid
         return $decoded;
     }
 
-    public function isValid(mixed $uid, ?string $model = null): bool
+    public function isValid(mixed $uid, ?string $class = null): bool
     {
         if (! is_string($uid)) {
             return false;
@@ -124,8 +124,8 @@ final class Uid
             $decoded = $this->decode($uid);
 
             return match (true) {
-                $model === null => $this->hasModel($decoded->prefix),
-                is_string($model) => $this->alias($model) === $decoded->prefix,
+                $class === null => $this->hasModel($decoded->prefix),
+                is_string($class) => $this->alias($class) === $decoded->prefix,
             };
         } catch (Throwable) {
             return false;
