@@ -14,7 +14,7 @@ use Sqids\Sqids;
 
 use function Pest\Laravel\get;
 
-it('encodes a model id to a hash', function () {
+it('encodes a model to a hash', function () {
     $user = User::factory()->create();
 
     $uid = Uid::make()->encode($user);
@@ -35,6 +35,38 @@ it('automatically creates and appends a uid to a model', function () {
         ->toStartWith($prefix = 'usr' . config('uid.separator'))
         ->toHaveLength(Str::length($prefix) + config('uid.length'))
         ->and($user->getAppends())->toContain('uid');
+});
+
+it('encodes a model id to a hash', function () {
+    $user = User::factory()->create();
+
+    $uid = Uid::make()->encodeFromId(User::class, $user->id);
+
+    $sqid = app(Sqids::class)->encode([$user->id]);
+
+    $separator = config('uid.separator');
+
+    expect($uid)
+        ->toStartWith("usr$separator")
+        ->toBe("usr$separator$sqid");
+});
+
+test('a model encodes ids', function () {
+    $uid = User::encodeId(1);
+
+    expect($uid)->toBe(
+        Uid::make()->encodeFromId(User::class, 1)
+    );
+});
+
+test('a model decodes uids', function () {
+    $user = User::factory()->create();
+
+    expect($user->is(User::decodeUid($user->uid)))->toBeTrue();
+});
+
+it('gets a model prefix', function () {
+    expect(User::uidPrefix())->toBe('usr');
 });
 
 it('decodes a uid', function () {
