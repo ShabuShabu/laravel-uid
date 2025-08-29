@@ -51,6 +51,22 @@ it('encodes a model id to a hash', function () {
         ->toBe("usr$separator$sqid");
 });
 
+it('encodes a morph id to a hash', function () {
+    config(['uid.morph_map.enabled' => true]);
+
+    $user = User::factory()->create();
+
+    $uid = Uid::make()->encodeMorphId('usr', $user->id);
+
+    $sqid = app(Sqids::class)->encode([$user->id]);
+
+    $separator = config('uid.separator');
+
+    expect($uid)
+        ->toStartWith("usr$separator")
+        ->toBe("usr$separator$sqid");
+});
+
 test('a model encodes ids', function () {
     $uid = User::encodeId(1);
 
@@ -143,6 +159,10 @@ it('panics for an invalid type when decoding', function () {
     $user = User::factory()->create();
 
     Uid::make()->decodeOrFail($user->uid, Contact::class);
+})->throws(RuntimeException::class);
+
+it('panics for a disabled morph map integration', function () {
+    Uid::make()->encodeMorphId('usr', 1);
 })->throws(RuntimeException::class);
 
 it('uses a custom alphabet', function () {
