@@ -12,6 +12,7 @@ use ShabuShabu\Uid\Service\DecodedUid;
  * @method static string alias(string $class)
  * @method static string encode(Model $model)
  * @method static string encodeFromId(string $class, int | string $id)
+ * @method static string encodeMorphId(string $type, int $id)
  * @method static Model decodeToModel(string $uid, ?string $class = null)
  * @method static DecodedUid decode(string $uid)
  * @method static DecodedUid decodeOrFail(string $uid, string $class)
