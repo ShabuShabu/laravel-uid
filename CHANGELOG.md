@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ---
+## [0.10.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.10.0..v0.10.1) - 2025-08-29
+
+### Refactoring
+
+- added missing facade method declaration - ([7885fa9](https://github.com/ShabuShabu/laravel-uid/commit/7885fa91999fd817c4e4287fd626e46f04333859)) - Boris Glumpler
+
+---
 ## [0.10.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.9.1..v0.10.0) - 2025-08-29
 
 ### Features
