@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ---
+## [0.9.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.9.0..v0.9.1) - 2025-08-29
+
+### Refactoring
+
+- allow null to be passed to Model::encodeId() - ([77d70b3](https://github.com/ShabuShabu/laravel-uid/commit/77d70b36538293f48667486ac5d47f614e616d9e)) - Boris Glumpler
+
+---
 ## [0.9.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.8.0..v0.9.0) - 2025-08-28
 
 ### Features
