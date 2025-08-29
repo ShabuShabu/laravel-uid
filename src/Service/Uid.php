@@ -51,6 +51,15 @@ final class Uid
         return $this->makeUid($this->alias($class), $id, new $class);
     }
 
+    public function encodeMorphId(string $type, int $id): string
+    {
+        if (! $this->config['morph_map']['enabled']) {
+            throw new RuntimeException('Morph map integration is not active');
+        }
+
+        return $this->encodeFromId($this->getModel($type), $id);
+    }
+
     protected function service(Identifiable $model): Sqids
     {
         return Encoder::make($model->uidAlphabet());
