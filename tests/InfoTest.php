@@ -25,9 +25,8 @@ it('panics for an unknown prefix', function () {
 it('shows model information for a uid', function () {
     $user = User::factory()->create();
 
-    /* @phpstan-ignore variable.undefined */
     $this
         ->artisan('uid:info')
-        ->expectsQuestion('What uid do you want to get info about?', $user->uid)
+        ->expectsQuestion('What uid do you want to get info about?', $user->getAttribute('uid'))
         ->assertExitCode(0);
 });

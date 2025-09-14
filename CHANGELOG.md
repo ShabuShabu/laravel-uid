@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ---
+## [0.11.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.10.1..v0.11.0) - 2025-09-14
+
+### Features
+
+- added some tools to ensure model, prefix and alphabet integrity - ([d008d24](https://github.com/ShabuShabu/laravel-uid/commit/d008d2440e1ff605db21dd59c9b982bac2dcddbf)) - Boris Glumpler
+
+### Tests
+
+- check command is tested now - ([2c9e0bc](https://github.com/ShabuShabu/laravel-uid/commit/2c9e0bce40fd4908c05dd1c1c93d2c72020b5b63)) - Boris Glumpler
+
+---
 ## [0.10.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.10.0..v0.10.1) - 2025-08-29
 
 ### Refactoring

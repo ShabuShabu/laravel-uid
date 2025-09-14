@@ -21,8 +21,9 @@ class UidServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasCommands(
                 Commands\Alphabet::class,
-                Commands\Info::class,
+                Commands\Check::class,
                 Commands\Encode::class,
+                Commands\Info::class,
             )
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
