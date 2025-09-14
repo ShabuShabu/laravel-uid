@@ -12,7 +12,9 @@ use Sqids\Sqids;
 
 class Check extends Command
 {
-    protected $signature = 'uid:check {action? : The action to take, either models or alphabets}';
+    protected $signature = 'uid:check {action? : The action to take, either models or alphabets}
+                                      {--directory= : Which directory to check for models}
+                                      {--namespace= : Which base namespace to use}';
 
     protected $description = 'Various tools to check if uid prefixes, models and alphabets are in sync';
 
@@ -33,6 +35,16 @@ class Check extends Command
 
     protected function models(array $config): int
     {
+        $directory = $this->option('directory') ?? $this->components->ask(
+            'Where are your models located?',
+            app_path('Models'),
+        );
+
+        $namespace = $this->option('namespace') ?? $this->components->ask(
+            'What is the base namespace?',
+            'App\\Models\\',
+        );
+
         $prefixModels = array_values($config['prefixes']);
 
         $duplicates = array_diff_assoc($prefixModels, array_unique($prefixModels));
@@ -50,10 +62,10 @@ class Check extends Command
         sort($prefixModels);
 
         $eloquentModels = [];
-        $files = File::allFiles(app_path('Models'));
+        $files = File::allFiles($directory);
 
         foreach ($files as $file) {
-            $class = 'App\\Models\\' . str_replace(['/', '.php'], ['\\', ''], $file->getRelativePathname());
+            $class = $namespace . str_replace(['/', '.php'], ['\\', ''], $file->getRelativePathname());
 
             if (class_exists($class) && in_array(Identifiable::class, class_implements($class), true)) {
                 $eloquentModels[] = $class;
@@ -79,9 +91,11 @@ class Check extends Command
 
         if ($count <= 0 && $duplicateCount <= 0) {
             $this->components->info('Prefixes and models are in sync!');
+
+            return static::SUCCESS;
         }
 
-        return static::SUCCESS;
+        return static::FAILURE;
     }
 
     protected function alphabets(array $config): int
@@ -125,8 +139,10 @@ class Check extends Command
 
         if ($alphabetCount <= 0 && $prefixCount <= 0) {
             $this->components->info('Alphabets and prefixes are in sync!');
+
+            return static::SUCCESS;
         }
 
-        return static::SUCCESS;
+        return static::FAILURE;
     }
 }
