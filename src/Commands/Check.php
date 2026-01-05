@@ -7,6 +7,7 @@ namespace ShabuShabu\Uid\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use ShabuShabu\Uid\Contracts\Identifiable;
 use Sqids\Sqids;
 
@@ -42,21 +43,19 @@ class Check extends Command
 
         $namespace = $this->option('namespace') ?? $this->components->ask(
             'What is the base namespace?',
-            'App\\Models\\',
+            '\\App\\Models\\',
         );
 
-        $prefixModels = array_values($config['prefixes']);
+        $prefixModels = array_map(
+            static fn (string $namespace) => Str::start($namespace, '\\'),
+            array_values($config['prefixes'])
+        );
 
         $duplicates = array_diff_assoc($prefixModels, array_unique($prefixModels));
 
         if (($duplicateCount = count($duplicates)) > 0) {
             $this->components->warn('Duplicate prefixes found:');
-
-            foreach ($duplicates as $model) {
-                $this->line("  - <fg=#A69A9f>$model</>");
-            }
-
-            $this->newLine();
+            $this->displayList($duplicates);
         }
 
         sort($prefixModels);
@@ -65,7 +64,7 @@ class Check extends Command
         $files = File::allFiles($directory);
 
         foreach ($files as $file) {
-            $class = $namespace . str_replace(['/', '.php'], ['\\', ''], $file->getRelativePathname());
+            $class = Str::start($namespace, '\\') . str_replace(['/', '.php'], ['\\', ''], $file->getRelativePathname());
 
             if (class_exists($class) && in_array(Identifiable::class, class_implements($class), true)) {
                 $eloquentModels[] = $class;
@@ -81,12 +80,7 @@ class Check extends Command
             $do = $count === 1 ? 'does' : 'do';
 
             $this->components->warn("<options=bold>$count</> $models $do not have a corresponding prefix:");
-
-            foreach ($diff as $model) {
-                $this->line("  - <fg=#A69A9f>$model</>");
-            }
-
-            $this->newLine();
+            $this->displayList($diff);
         }
 
         if ($count <= 0 && $duplicateCount <= 0) {
@@ -129,12 +123,7 @@ class Check extends Command
             $do = $prefixCount === 1 ? 'does' : 'do';
 
             $this->components->warn("<options=bold>$prefixCount</> $alphabets $do not have a corresponding prefix:");
-
-            foreach ($prefixDiff as $key) {
-                $this->line("  - <fg=#A69A9f>$key</>");
-            }
-
-            $this->newLine();
+            $this->displayList($prefixDiff);
         }
 
         if ($alphabetCount <= 0 && $prefixCount <= 0) {
@@ -144,5 +133,14 @@ class Check extends Command
         }
 
         return static::FAILURE;
+    }
+
+    protected function displayList(array $list): void
+    {
+        foreach ($list as $key) {
+            $this->line("  - <fg=#A69A9f>$key</>");
+        }
+
+        $this->newLine();
     }
 }
