@@ -21,7 +21,7 @@ it('confirms that prefixes are in sync with its models', function () {
         ->artisan('uid:check')
         ->expectsQuestion('What do you want to check?', 'models')
         ->expectsQuestion('Where are your models located?', __DIR__ . '/app/Models')
-        ->expectsQuestion('What is the base namespace?', 'ShabuShabu\\Uid\\Tests\\App\Models\\')
+        ->expectsQuestion('What is the base namespace?', '\\ShabuShabu\\Uid\\Tests\\App\Models\\')
         ->expectsOutputToContain('Prefixes and models are in sync!')
         ->assertExitCode(0);
 });
@@ -38,7 +38,7 @@ it('panics for missing model prefixes', function () {
         ->artisan('uid:check')
         ->expectsQuestion('What do you want to check?', 'models')
         ->expectsQuestion('Where are your models located?', __DIR__ . '/app/Models')
-        ->expectsQuestion('What is the base namespace?', 'ShabuShabu\\Uid\\Tests\\App\Models\\')
+        ->expectsQuestion('What is the base namespace?', '\\ShabuShabu\\Uid\\Tests\\App\Models\\')
         ->expectsOutputToContain('model does not have a corresponding prefix:')
         ->expectsOutputToContain(Contact::class)
         ->assertExitCode(1);
@@ -58,7 +58,7 @@ it('panics for duplicate model prefixes', function () {
         ->artisan('uid:check')
         ->expectsQuestion('What do you want to check?', 'models')
         ->expectsQuestion('Where are your models located?', __DIR__ . '/app/Models')
-        ->expectsQuestion('What is the base namespace?', 'ShabuShabu\\Uid\\Tests\\App\Models\\')
+        ->expectsQuestion('What is the base namespace?', '\\ShabuShabu\\Uid\\Tests\\App\Models\\')
         ->expectsOutputToContain('Duplicate prefixes found:')
         ->expectsOutputToContain(Contact::class)
         ->assertExitCode(1);

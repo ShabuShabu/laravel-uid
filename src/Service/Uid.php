@@ -21,7 +21,7 @@ final class Uid
         protected array $config
     ) {}
 
-    public static function make(): Uid
+    public static function make(): self
     {
         return app(self::class);
     }
@@ -162,10 +162,15 @@ final class Uid
         return array_key_exists($key, $this->config['prefixes']);
     }
 
-    public function withTrashed(): Uid
+    public function withTrashed(): self
     {
         $this->trashed = true;
 
         return $this;
+    }
+
+    public static function rule(?string $class = null): Rule
+    {
+        return new Rule($class);
     }
 }

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ---
+
+## [0.12.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.11.0..v0.12.0) - 2026-01-05
+
+### Features
+
+- added a custom validation rule - ([e52c05b](https://github.com/ShabuShabu/laravel-uid/commit/e52c05bf49546b29a5478c1ec350452c5e82b43a)) - Boris Glumpler
+
+---
+
 ## [0.11.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.10.1..v0.11.0) - 2025-09-14
 
 ### Features
@@ -14,6 +23,7 @@ All notable changes to this project will be documented in this file. See [conven
 - check command is tested now - ([2c9e0bc](https://github.com/ShabuShabu/laravel-uid/commit/2c9e0bce40fd4908c05dd1c1c93d2c72020b5b63)) - Boris Glumpler
 
 ---
+
 ## [0.10.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.10.0..v0.10.1) - 2025-08-29
 
 ### Refactoring
@@ -21,6 +31,7 @@ All notable changes to this project will be documented in this file. See [conven
 - added missing facade method declaration - ([7885fa9](https://github.com/ShabuShabu/laravel-uid/commit/7885fa91999fd817c4e4287fd626e46f04333859)) - Boris Glumpler
 
 ---
+
 ## [0.10.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.9.1..v0.10.0) - 2025-08-29
 
 ### Features
@@ -28,6 +39,7 @@ All notable changes to this project will be documented in this file. See [conven
 - added method to encode from a morph id - ([b3684b3](https://github.com/ShabuShabu/laravel-uid/commit/b3684b3c71aede5327f834626385fe5c274516bb)) - Boris Glumpler
 
 ---
+
 ## [0.9.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.9.0..v0.9.1) - 2025-08-29
 
 ### Refactoring
@@ -35,6 +47,7 @@ All notable changes to this project will be documented in this file. See [conven
 - allow null to be passed to Model::encodeId() - ([77d70b3](https://github.com/ShabuShabu/laravel-uid/commit/77d70b36538293f48667486ac5d47f614e616d9e)) - Boris Glumpler
 
 ---
+
 ## [0.9.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.8.0..v0.9.0) - 2025-08-28
 
 ### Features

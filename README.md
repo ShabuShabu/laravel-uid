@@ -166,6 +166,24 @@ return [
 
 Please note that this package does **not** work with string or compound primary keys. The underlying [Squids](https://github.com/sqids/sqids-php) library supports the encoding of an integer array, so compound primary keys might eventually be supported.
 
+## Validation
+
+This package comes with its own validation rule that can be used like so:
+
+```php
+use ShabuShabu\Uid\Service\Uid;
+
+Uid::rule(User::class);
+```
+
+or
+
+```php
+use ShabuShabu\Uid\Service\Rule;
+
+new Rule(User::class);
+```
+
 ## Testing
 
 ```bash

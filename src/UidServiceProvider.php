@@ -19,6 +19,7 @@ class UidServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-uid')
             ->hasConfigFile()
+            ->hasTranslations()
             ->hasCommands(
                 Commands\Alphabet::class,
                 Commands\Check::class,
