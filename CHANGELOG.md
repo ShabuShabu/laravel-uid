@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [conven
 
 ---
 
+## [0.13.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.12.0..v0.13.0) - 2026-01-15
+
+### Features
+
+- added helper function to split a uid by its separator - ([77d0984](https://github.com/ShabuShabu/laravel-uid/commit/77d0984f770a4915c36e226d2fb1206ec1f6e39d)) - Boris Glumpler
+
+---
+
 ## [0.12.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.11.0..v0.12.0) - 2026-01-05
 
 ### Features

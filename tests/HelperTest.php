@@ -41,3 +41,11 @@ it('returns null', function () {
 
     expect($result)->toBeNull();
 });
+
+it('splits a uid', function () {
+    $user = User::factory()->create();
+
+    expect(split_uid($user->uid))->toBe([
+        'usr' => 'UkLWZg9DAJ',
+    ]);
+});
