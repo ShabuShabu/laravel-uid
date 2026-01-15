@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 use ShabuShabu\Uid\Service\Uid;
 
+if (! function_exists('uid')) {
+    function uid(): Uid
+    {
+        return Uid::make();
+    }
+}
+
 /**
  * @template TModel
  *
@@ -31,9 +38,20 @@ if (! function_exists('resolve_model')) {
     }
 }
 
-if (! function_exists('uid')) {
-    function uid(): Uid
+if (! function_exists('split_uid')) {
+    /**
+     * Split a given uid into its prefix and hash id
+     *
+     * @throws Throwable
+     */
+    function split_uid(string $uid, ?string $class = null): array
     {
-        return Uid::make();
+        $service = Uid::make();
+
+        $decoded = $class
+            ? $service->decodeOrFail($uid, $class)
+            : $service->decode($uid);
+
+        return [$decoded->prefix => $decoded->hashId];
     }
 }
