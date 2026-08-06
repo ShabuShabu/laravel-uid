@@ -29,7 +29,7 @@ class Encode extends Command
         $id = $this->argument('id') ?? text(
             label: 'Which ID should be encoded?',
             required: true,
-            validate: fn (string $value) => is_numeric($value),
+            validate: fn (string $value) => is_numeric($value) ? null : 'The ID must be numeric',
         );
 
         $uid = Uid::encodeFromId($model, $id);
