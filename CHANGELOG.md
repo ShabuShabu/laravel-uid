@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. See [conven
 
 ---
 
+## [0.13.1](https://github.com/ShabuShabu/laravel-uid/compare/v0.13.0..v0.13.1) - 2026-08-06
+
+### Bug Fixes
+
+- text validator was broken - ([c620bc3](https://github.com/ShabuShabu/laravel-uid/commit/c620bc398adc99d88485809309f62134dd622fd5)) - Boris Glumpler
+
+### Refactoring
+
+- added release command - ([cbafef2](https://github.com/ShabuShabu/laravel-uid/commit/cbafef214488f5ce0006a693114156e56f00a66f)) - Boris Glumpler
+
+---
+
 ## [0.13.0](https://github.com/ShabuShabu/laravel-uid/compare/v0.12.0..v0.13.0) - 2026-01-15
 
 ### Features
